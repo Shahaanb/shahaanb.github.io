@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Brain, MessageSquare, Smartphone, Code, TrendingUp, Image } from "lucide-react";
+import { Brain, MessageSquare, Smartphone, Code, TrendingUp, Image, ArrowDown } from "lucide-react";
 
 const Competencies = () => {
   const competencies = [
@@ -36,16 +36,39 @@ const Competencies = () => {
   ];
 
   return (
-    <section id="competencies" className="py-20 bg-navy-medium/30">
+    <section id="competencies" className="py-32 bg-navy-medium/30">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-center">
-            Core <span className="text-primary">Competencies</span>
-          </h2>
-          <div className="w-20 h-1 bg-gradient-accent mx-auto mb-4" />
-          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Expertise across AI, development, and digital solutions
-          </p>
+          <div className="grid lg:grid-cols-2 gap-16 mb-16">
+            <div>
+              <p className="text-primary text-sm font-semibold tracking-wider uppercase mb-4">
+                — Competencies
+              </p>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                What I Do,<br/>
+                <span className="text-primary">Core Skills.</span>
+              </h2>
+              <p className="text-muted-foreground text-lg">
+                Expertise across AI, machine learning, app development, and digital solutions to solve real-world problems.
+              </p>
+            </div>
+            <div className="flex items-center justify-center lg:justify-end">
+              <div className="text-center lg:text-right">
+                <p className="text-muted-foreground text-sm mb-2">Ready to collaborate?</p>
+                <a 
+                  href="#contact"
+                  className="text-primary text-2xl md:text-3xl font-bold hover:underline inline-flex items-center gap-2 group"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                >
+                  Let's connect
+                  <ArrowDown className="rotate-[-90deg] group-hover:translate-x-2 transition-transform" />
+                </a>
+              </div>
+            </div>
+          </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {competencies.map((competency, index) => {

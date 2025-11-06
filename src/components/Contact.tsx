@@ -48,16 +48,19 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-20">
+    <section id="contact" className="py-32 bg-navy-dark/50">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-center">
-            Get In <span className="text-primary">Touch</span>
-          </h2>
-          <div className="w-20 h-1 bg-gradient-accent mx-auto mb-4" />
-          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Let's discuss how I can contribute to your team or project
-          </p>
+          <div className="mb-16">
+            <p className="text-primary text-sm font-semibold tracking-wider uppercase mb-4">
+              — Contact
+            </p>
+            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+              Estimate your project?<br/>
+              <span className="text-primary">Let me know here.</span>
+            </h2>
+            <div className="w-20 h-1 bg-gradient-accent" />
+          </div>
 
           <div className="grid md:grid-cols-2 gap-8">
             {/* Contact Form */}

@@ -44,13 +44,19 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-20 bg-navy-medium/30">
+    <section id="about" className="py-32 bg-navy-dark/50">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-center">
-            About <span className="text-primary">Me</span>
-          </h2>
-          <div className="w-20 h-1 bg-gradient-accent mx-auto mb-12" />
+          <div className="mb-16">
+            <p className="text-primary text-sm font-semibold tracking-wider uppercase mb-4">
+              — About
+            </p>
+            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+              Building Intelligence,<br/>
+              <span className="text-primary">One Solution at a Time.</span>
+            </h2>
+            <div className="w-20 h-1 bg-gradient-accent" />
+          </div>
 
           <div className="grid md:grid-cols-2 gap-12 mb-16">
             <div className="space-y-6">

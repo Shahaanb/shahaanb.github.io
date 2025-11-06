@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 
 const Navigation = () => {
@@ -40,17 +39,19 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-20">
           <a
             href="#home"
-            className="text-2xl font-bold bg-gradient-accent bg-clip-text text-transparent"
+            className="text-xl font-bold"
             onClick={(e) => {
               e.preventDefault();
               scrollToSection("#home");
             }}
           >
-            SB
+            <div className="w-12 h-12 rounded-xl bg-gradient-accent flex items-center justify-center shadow-glow hover:scale-110 transition-transform">
+              <span className="text-xl font-bold text-navy-dark">S</span>
+            </div>
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-1">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -59,32 +60,25 @@ const Navigation = () => {
                   e.preventDefault();
                   scrollToSection(link.href);
                 }}
-                className="text-foreground hover:text-primary transition-colors font-medium"
+                className="px-4 py-2 text-foreground hover:text-primary transition-colors font-medium rounded-lg hover:bg-card/50"
               >
                 {link.label}
               </a>
             ))}
-            <Button
-              size="sm"
-              className="bg-gradient-accent hover:shadow-glow transition-all"
-              onClick={() => scrollToSection("#contact")}
-            >
-              Let's Talk
-            </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <button
-            className="md:hidden text-foreground"
+            className="md:hidden text-foreground hover:text-primary transition-colors"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
-            {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-6 space-y-4 animate-fade-in">
+          <div className="md:hidden py-6 space-y-2 animate-fade-in border-t border-border">
             {navLinks.map((link) => (
               <a
                 key={link.href}
@@ -93,17 +87,11 @@ const Navigation = () => {
                   e.preventDefault();
                   scrollToSection(link.href);
                 }}
-                className="block text-foreground hover:text-primary transition-colors font-medium py-2"
+                className="block text-foreground hover:text-primary transition-colors font-medium py-3 px-4 rounded-lg hover:bg-card/50"
               >
                 {link.label}
               </a>
             ))}
-            <Button
-              className="w-full bg-gradient-accent hover:shadow-glow transition-all"
-              onClick={() => scrollToSection("#contact")}
-            >
-              Let's Talk
-            </Button>
           </div>
         )}
       </div>

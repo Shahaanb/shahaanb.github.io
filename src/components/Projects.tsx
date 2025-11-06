@@ -83,16 +83,22 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-20">
+    <section id="projects" className="py-32">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-center">
-            Featured <span className="text-primary">Projects</span>
-          </h2>
-          <div className="w-20 h-1 bg-gradient-accent mx-auto mb-4" />
-          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            A showcase of my work in AI, machine learning, and application development
-          </p>
+          <div className="mb-16">
+            <p className="text-primary text-sm font-semibold tracking-wider uppercase mb-4">
+              — Portfolio
+            </p>
+            <h2 className="text-5xl md:text-6xl font-bold mb-6">
+              All Creative Works,<br/>
+              <span className="text-primary">Selected Projects.</span>
+            </h2>
+            <div className="w-20 h-1 bg-gradient-accent mb-6" />
+            <p className="text-muted-foreground text-lg max-w-2xl">
+              Craft of progressive code works that stand-out in memorable explorations.
+            </p>
+          </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project, index) => (
