@@ -1,0 +1,153 @@
+import { useState } from "react";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Mail, Phone, Linkedin, Github } from "lucide-react";
+import { toast } from "sonner";
+
+const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // In a real application, this would send the form data to a backend
+    toast.success("Message sent! I'll get back to you soon.");
+    setFormData({ name: "", email: "", message: "" });
+  };
+
+  const contactInfo = [
+    {
+      icon: Mail,
+      label: "Email",
+      value: "shahaanhb@gmail.com",
+      href: "mailto:shahaanhb@gmail.com",
+    },
+    {
+      icon: Phone,
+      label: "Phone",
+      value: "+91 9820120292",
+      href: "tel:+919820120292",
+    },
+    {
+      icon: Linkedin,
+      label: "LinkedIn",
+      value: "linkedin.com/in/shahaan-bharucha",
+      href: "https://linkedin.com/in/shahaan-bharucha-2330762b4",
+    },
+    {
+      icon: Github,
+      label: "GitHub",
+      value: "github.com/Shahaanb",
+      href: "https://github.com/Shahaanb",
+    },
+  ];
+
+  return (
+    <section id="contact" className="py-20">
+      <div className="container mx-auto px-4">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-center">
+            Get In <span className="text-primary">Touch</span>
+          </h2>
+          <div className="w-20 h-1 bg-gradient-accent mx-auto mb-4" />
+          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            Let's discuss how I can contribute to your team or project
+          </p>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Contact Form */}
+            <Card className="p-8 bg-card border-border">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium mb-2">
+                    Name
+                  </label>
+                  <Input
+                    id="name"
+                    type="text"
+                    placeholder="Your name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    required
+                    className="bg-background border-border"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium mb-2">
+                    Email
+                  </label>
+                  <Input
+                    id="email"
+                    type="email"
+                    placeholder="your.email@example.com"
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    required
+                    className="bg-background border-border"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium mb-2">
+                    Message
+                  </label>
+                  <Textarea
+                    id="message"
+                    placeholder="Your message..."
+                    rows={5}
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                    required
+                    className="bg-background border-border"
+                  />
+                </div>
+
+                <Button type="submit" className="w-full bg-gradient-accent hover:shadow-glow transition-all">
+                  Send Message
+                </Button>
+              </form>
+            </Card>
+
+            {/* Contact Information */}
+            <div className="space-y-6">
+              {contactInfo.map((info, index) => {
+                const Icon = info.icon;
+                return (
+                  <Card
+                    key={index}
+                    className="p-6 bg-card border-border hover:border-primary/50 transition-all group"
+                  >
+                    <a
+                      href={info.href}
+                      target={info.href.startsWith("http") ? "_blank" : undefined}
+                      rel={info.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      className="flex items-center gap-4"
+                    >
+                      <div className="p-3 bg-primary/10 rounded-lg group-hover:bg-primary/20 transition-colors">
+                        <Icon className="h-6 w-6 text-primary" />
+                      </div>
+                      <div>
+                        <h4 className="font-semibold mb-1 group-hover:text-primary transition-colors">
+                          {info.label}
+                        </h4>
+                        <p className="text-muted-foreground text-sm">{info.value}</p>
+                      </div>
+                    </a>
+                  </Card>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Contact;
