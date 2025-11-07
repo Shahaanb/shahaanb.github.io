@@ -1,6 +1,5 @@
 import { Card } from "@/components/ui/card";
 import { GraduationCap, Briefcase, Award } from "lucide-react";
-import profilePicture from "@/assets/profile-picture.jpg";
 
 const About = () => {
   const education = [
@@ -58,19 +57,8 @@ const About = () => {
             <div className="w-20 h-1 bg-gradient-accent" />
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 mb-16">
-            <div className="space-y-6">
-              <div className="relative">
-                <div className="absolute inset-0 bg-primary blur-2xl opacity-10" />
-                <img
-                  src={profilePicture}
-                  alt="Shahaan Bharucha"
-                  className="relative w-full rounded-2xl shadow-card border border-primary/20"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-6">
+          <div className="mb-16">
+            <div className="space-y-6 max-w-4xl mx-auto">
               <p className="text-lg text-muted-foreground leading-relaxed">
                 I am currently a student at MPSTME, Mumbai and I am studying AI. I am constantly
                 chasing new solutions to whatever problems I see in day to day life and I am a big
