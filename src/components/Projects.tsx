@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Github, ExternalLink, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
 
 interface Project {
   title: string;
@@ -18,6 +20,8 @@ interface Project {
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const projects: Project[] = [
     {
@@ -86,10 +90,15 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-32">
+    <section ref={ref} id="projects" className="py-32">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6 }}
+            className="mb-16"
+          >
             <p className="text-primary text-sm font-semibold tracking-wider uppercase mb-4">
               — Portfolio
             </p>
@@ -101,14 +110,17 @@ const Projects = () => {
             <p className="text-muted-foreground text-lg max-w-2xl">
               Craft of progressive code works that stand-out in memorable explorations.
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project, index) => (
-              <Card
+              <motion.div
                 key={index}
-                className="p-6 bg-card border-border hover:border-primary/50 transition-all hover:shadow-glow group cursor-pointer"
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
               >
+                <Card className="p-6 bg-card border-border hover:border-primary/50 transition-all hover:shadow-glow group cursor-pointer h-full">
                 <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
                   {project.title}
                 </h3>
@@ -155,6 +167,7 @@ const Projects = () => {
                   )}
                 </div>
               </Card>
+            </motion.div>
             ))}
           </div>
         </div>

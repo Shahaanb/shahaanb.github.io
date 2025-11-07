@@ -1,13 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
+import { motion } from "framer-motion";
 
 const Hero = () => {
-  const scrollToProjects = () => {
-    const element = document.querySelector("#projects");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   return (
     <section
@@ -20,7 +14,12 @@ const Hero = () => {
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex items-center justify-center min-h-screen py-20">
           {/* Content - Center */}
-          <div className="space-y-8 animate-slide-up max-w-4xl mx-auto text-center">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="space-y-8 max-w-4xl mx-auto text-center"
+          >
             <div className="space-y-6">
               <p className="text-primary text-sm font-semibold tracking-wider uppercase">
                 — Introduction
@@ -39,17 +38,6 @@ const Hero = () => {
                 I'm an AI student at MPSTME, passionate about building new technologies,
                 training machine learning models, and developing mobile apps.
               </p>
-            </div>
-
-            <div className="flex flex-wrap gap-4 pt-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-gradient-accent hover:shadow-glow transition-all group text-base font-semibold"
-                onClick={scrollToProjects}
-              >
-                My story
-                <ArrowDown className="ml-2 h-5 w-5 group-hover:translate-y-1 transition-transform" />
-              </Button>
             </div>
 
             {/* Social Links */}
@@ -80,7 +68,7 @@ const Hero = () => {
                 <Mail className="h-5 w-5" />
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

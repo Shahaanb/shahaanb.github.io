@@ -1,7 +1,12 @@
 import { Card } from "@/components/ui/card";
 import { GraduationCap, Briefcase, Award } from "lucide-react";
+import { motion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 
 const About = () => {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
   const education = [
     {
       school: "SVKM's NMIMS MPSTME",
@@ -43,10 +48,15 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-32 bg-navy-dark/50">
+    <section ref={ref} id="about" className="py-32 bg-navy-dark/50">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6 }}
+            className="mb-16"
+          >
             <p className="text-primary text-sm font-semibold tracking-wider uppercase mb-4">
               — About
             </p>
@@ -55,9 +65,14 @@ const About = () => {
               <span className="text-primary">One Solution at a Time.</span>
             </h2>
             <div className="w-20 h-1 bg-gradient-accent" />
-          </div>
+          </motion.div>
 
-          <div className="mb-16">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mb-16"
+          >
             <div className="space-y-6 max-w-4xl mx-auto">
               <p className="text-lg text-muted-foreground leading-relaxed">
                 I am currently a student at MPSTME, Mumbai and I am studying AI. I am constantly
@@ -70,10 +85,15 @@ const About = () => {
                 with knowledge in image processing such as OpenCV.
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Education */}
-          <div className="mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mb-12"
+          >
             <div className="flex items-center gap-3 mb-6">
               <GraduationCap className="h-8 w-8 text-primary" />
               <h3 className="text-3xl font-bold">Education</h3>
@@ -87,10 +107,15 @@ const About = () => {
                 </Card>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Experience */}
-          <div className="mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6, delay: 0.6 }}
+            className="mb-12"
+          >
             <div className="flex items-center gap-3 mb-6">
               <Briefcase className="h-8 w-8 text-primary" />
               <h3 className="text-3xl font-bold">Practical Experience</h3>
@@ -107,10 +132,14 @@ const About = () => {
                 </Card>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Certifications */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+          >
             <div className="flex items-center gap-3 mb-6">
               <Award className="h-8 w-8 text-primary" />
               <h3 className="text-3xl font-bold">Certifications</h3>
@@ -122,7 +151,7 @@ const About = () => {
                 </Card>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

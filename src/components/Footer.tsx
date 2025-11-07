@@ -1,4 +1,5 @@
-import { Mail, Linkedin, Github } from "lucide-react";
+import { Mail, Linkedin, Github, FileText } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Footer = () => {
   const socialLinks = [
@@ -15,6 +16,19 @@ const Footer = () => {
     <footer className="py-12 border-t border-border bg-navy-medium/30">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col items-center gap-8 mb-8">
+            <Button
+              size="lg"
+              className="bg-gradient-accent hover:shadow-glow transition-all group text-base font-semibold"
+              asChild
+            >
+              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+                <FileText className="mr-2 h-5 w-5" />
+                View Resume
+              </a>
+            </Button>
+          </div>
+
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left">
               <p className="text-muted-foreground">
