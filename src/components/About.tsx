@@ -22,14 +22,14 @@ const About = () => {
       period: "Jun-Jul 2024",
     },
     {
-      title: "E-commerce Specialist",
-      company: "Family Business",
+      title: "E-Commerce",
+      company: "Crystal By Gaia",
       period: "Ongoing",
       description: "Managed Shopify store setup",
     },
     {
       title: "Digital Marketing",
-      company: "Family Business",
+      company: "Horseland Hotel",
       period: "Ongoing",
       description: "Managing Google Ads campaigns",
     },

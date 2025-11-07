@@ -36,6 +36,7 @@ const Projects = () => {
       problem: "Researchers needed a tool to visualize and analyze trends across multiple research papers efficiently.",
       solution: "Created an interactive dashboard that parses research papers, extracts key metrics, and visualizes trends using Plotly. Includes filtering, searching, and export capabilities.",
       role: "Developed the entire pipeline from data extraction to visualization, including the UI/UX design.",
+      github: "https://github.com/Shahaanb",
     },
     {
       title: "Multi-PDF Question & Answering System",
@@ -62,6 +63,7 @@ const Projects = () => {
       problem: "Needed to build an accurate classification model to assist in early breast cancer detection.",
       solution: "Trained multiple ML models (SVM, Random Forest, Neural Networks) on the Wisconsin Breast Cancer dataset. Achieved 97% accuracy using ensemble methods and feature engineering.",
       role: "Performed data preprocessing, feature selection, model training, and hyperparameter tuning. Created visualization for model performance.",
+      github: "https://github.com/Shahaanb",
     },
     {
       title: "Comparative Analysis of Weather Prediction Models",
@@ -70,6 +72,7 @@ const Projects = () => {
       problem: "Needed to determine the most effective ML approach for accurate weather prediction.",
       solution: "Compared traditional ML models (ARIMA, Random Forest) with deep learning approaches (LSTM, GRU). Evaluated performance across different weather parameters and time horizons.",
       role: "Collected and preprocessed weather data, implemented all models, conducted comparative analysis, and documented findings.",
+      github: "https://github.com/Shahaanb",
     },
     {
       title: "Punctuation Corrector Tool (NLP)",

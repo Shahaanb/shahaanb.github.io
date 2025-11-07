@@ -13,11 +13,6 @@ const Stats = () => {
       subtitle: "Earned",
     },
     {
-      number: "6",
-      label: "Core Skills",
-      subtitle: "Mastered",
-    },
-    {
       number: "2027",
       label: "Expected Graduation",
       subtitle: "B.Tech AI",
@@ -28,7 +23,7 @@ const Stats = () => {
     <section className="py-20 bg-navy-medium/50">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {stats.map((stat, index) => (
               <Card
                 key={index}

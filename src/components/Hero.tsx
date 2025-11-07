@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowDown, Download, Eye } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Mail } from "lucide-react";
 
 const Hero = () => {
   const scrollToProjects = () => {
@@ -21,13 +21,6 @@ const Hero = () => {
         <div className="flex items-center justify-center min-h-screen py-20">
           {/* Content - Center */}
           <div className="space-y-8 animate-slide-up max-w-4xl mx-auto text-center">
-            {/* Logo/Initials */}
-            <div className="flex justify-center">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-accent flex items-center justify-center shadow-glow">
-                <span className="text-3xl font-bold text-navy-dark">S</span>
-              </div>
-            </div>
-
             <div className="space-y-6">
               <p className="text-primary text-sm font-semibold tracking-wider uppercase">
                 — Introduction
@@ -68,7 +61,7 @@ const Hero = () => {
                 className="w-10 h-10 rounded-lg border border-border hover:border-primary hover:text-primary transition-all flex items-center justify-center"
                 aria-label="GitHub"
               >
-                <span className="text-sm">G</span>
+                <Github className="h-5 w-5" />
               </a>
               <a
                 href="https://linkedin.com/in/shahaan-bharucha-2330762b4"
@@ -77,14 +70,14 @@ const Hero = () => {
                 className="w-10 h-10 rounded-lg border border-border hover:border-primary hover:text-primary transition-all flex items-center justify-center"
                 aria-label="LinkedIn"
               >
-                <span className="text-sm">in</span>
+                <Linkedin className="h-5 w-5" />
               </a>
               <a
                 href="mailto:shahaanhb@gmail.com"
                 className="w-10 h-10 rounded-lg border border-border hover:border-primary hover:text-primary transition-all flex items-center justify-center"
                 aria-label="Email"
               >
-                <span className="text-sm">@</span>
+                <Mail className="h-5 w-5" />
               </a>
             </div>
           </div>
