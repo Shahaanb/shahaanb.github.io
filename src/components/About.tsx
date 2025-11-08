@@ -41,10 +41,22 @@ const About = () => {
   ];
 
   const certifications = [
-    "Introduction to Programming using Java - GeeksforGeeks (2025)",
-    "CS50P (CS50 for Python) - Harvard University (2022)",
-    "Programming for Everybody (Python) - University of Michigan (2021)",
-    "Introduction to Machine Learning - University of London (2021)",
+    {
+      name: "Introduction to Programming using Java - GeeksforGeeks (2025)",
+      link: "https://media.geeksforgeeks.org/courses/certificates/e2614eff4f5fbae6e0e568e00fe7bea4.pdf"
+    },
+    {
+      name: "CS50P (CS50 for Python) - Harvard University (2022)",
+      link: "https://certificates.cs50.io/86dba8ef-e13a-4d85-92ba-5a4776df1691.pdf?size=letter"
+    },
+    {
+      name: "Programming for Everybody (Python) - University of Michigan (2021)",
+      link: "https://www.coursera.org/account/accomplishments/verify/XB6YQX94DCH3"
+    },
+    {
+      name: "Introduction to Machine Learning - University of London (2021)",
+      link: null
+    },
   ];
 
   return (
@@ -146,9 +158,17 @@ const About = () => {
             </div>
             <div className="grid md:grid-cols-2 gap-4">
               {certifications.map((cert, index) => (
-                <Card key={index} className="p-6 bg-card border-border hover:border-primary/50 transition-all">
-                  <p className="text-muted-foreground">{cert}</p>
-                </Card>
+                cert.link ? (
+                  <a key={index} href={cert.link} target="_blank" rel="noopener noreferrer">
+                    <Card className="p-6 bg-card border-border hover:border-primary/50 transition-all cursor-pointer hover:scale-105 transition-transform">
+                      <p className="text-muted-foreground">{cert.name}</p>
+                    </Card>
+                  </a>
+                ) : (
+                  <Card key={index} className="p-6 bg-card border-border">
+                    <p className="text-muted-foreground">{cert.name}</p>
+                  </Card>
+                )
               ))}
             </div>
           </motion.div>
