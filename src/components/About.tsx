@@ -47,7 +47,7 @@ const About = () => {
     },
     {
       name: "CS50P (CS50 for Python) - Harvard University (2022)",
-      link: "https://certificates.cs50.io/86dba8ef-e13a-4d85-92ba-5a4776df1691.pdf?size=letter"
+      link: "https://www.coursera.org/account/accomplishments/verify/SYXSBLMWS72U"
     },
     {
       name: "Programming for Everybody (Python) - University of Michigan (2021)",
@@ -55,7 +55,7 @@ const About = () => {
     },
     {
       name: "Introduction to Machine Learning - University of London (2021)",
-      link: null
+      link: "https://coursera.org/verify/SYXSBLMWS72U"
     },
   ];
 
