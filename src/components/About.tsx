@@ -43,11 +43,11 @@ const About = () => {
   const certifications = [
     {
       name: "Introduction to Programming using Java - GeeksforGeeks (2025)",
-      link: "https://media.geeksforgeeks.org/courses/certificates/e2614eff4f5fbae6e0e568e00fe7bea4.pdf"
+      link: null
     },
     {
       name: "CS50P (CS50 for Python) - Harvard University (2022)",
-      link: "https://www.coursera.org/account/accomplishments/verify/SYXSBLMWS72U"
+      link: null
     },
     {
       name: "Programming for Everybody (Python) - University of Michigan (2021)",

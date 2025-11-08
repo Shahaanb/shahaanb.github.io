@@ -119,15 +119,8 @@ const Projects = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ 
-                  rotateY: 5,
-                  rotateX: -5,
-                  scale: 1.02,
-                  transition: { duration: 0.3 }
-                }}
-                style={{ perspective: 1000 }}
               >
-                <Card className="p-6 bg-card border-border hover:border-primary/50 transition-all hover:shadow-glow group cursor-pointer h-full">
+                <Card className="p-6 bg-card border-border hover:border-primary/50 transition-all hover:shadow-glow hover:scale-105 transition-transform group cursor-pointer h-full">
                 <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">
                   {project.title}
                 </h3>
