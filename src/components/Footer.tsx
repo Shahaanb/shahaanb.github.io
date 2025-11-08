@@ -22,7 +22,7 @@ const Footer = () => {
               className="bg-gradient-accent hover:shadow-glow transition-all group text-base font-semibold"
               asChild
             >
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+              <a href="https://docs.google.com/document/d/17zSiZT8JDoPKmdeZgkebLTpewW3lGaCx/edit?usp=sharing&ouid=106833664789789142548&rtpof=true&sd=true" target="_blank" rel="noopener noreferrer">
                 <FileText className="mr-2 h-5 w-5" />
                 View Resume
               </a>

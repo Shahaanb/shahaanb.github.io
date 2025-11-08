@@ -165,7 +165,7 @@ const About = () => {
                     </Card>
                   </a>
                 ) : (
-                  <Card key={index} className="p-6 bg-card border-border">
+                  <Card key={index} className="p-6 bg-card border-border hover:border-primary/50 transition-all hover:scale-105 transition-transform">
                     <p className="text-muted-foreground">{cert.name}</p>
                   </Card>
                 )

@@ -8,7 +8,7 @@ const CallToAction = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-20 bg-navy-medium/30">
+    <section className="py-12 bg-navy-medium/30">
       <div className="container mx-auto px-4">
         <motion.div
           ref={ref}
