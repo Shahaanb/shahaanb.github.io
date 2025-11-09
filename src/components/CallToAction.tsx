@@ -8,13 +8,19 @@ const CallToAction = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-12 bg-navy-medium/30">
-      <div className="container mx-auto px-4">
+    <section className="py-12 bg-navy-medium/30 relative overflow-hidden">
+      <motion.div 
+        initial={{ scale: 0.8, opacity: 0 }}
+        animate={isInView ? { scale: 1, opacity: 0.05 } : { scale: 0.8, opacity: 0 }}
+        transition={{ duration: 1 }}
+        className="absolute inset-0 bg-gradient-radial from-primary/30 to-transparent pointer-events-none"
+      />
+      <div className="container mx-auto px-4 relative z-10">
         <motion.div
           ref={ref}
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-4xl mx-auto text-center"
         >
           <p className="text-muted-foreground text-lg mb-4">Ready to collaborate?</p>

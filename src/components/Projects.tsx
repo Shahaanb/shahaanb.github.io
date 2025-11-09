@@ -116,9 +116,13 @@ const Projects = () => {
             {projects.map((project, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.95 }}
+                transition={{ 
+                  duration: 0.4, 
+                  delay: index * 0.08,
+                  ease: [0.16, 1, 0.3, 1]
+                }}
               >
                 <Card className="p-6 bg-card border-border hover:border-primary/50 transition-all hover:shadow-glow hover:scale-105 transition-transform group cursor-pointer h-full">
                 <h3 className="text-xl font-bold mb-3 group-hover:text-primary transition-colors">

@@ -25,16 +25,28 @@ const Stats = () => {
   ];
 
   return (
-    <section ref={ref} className="py-20 bg-navy-medium/50">
+    <section ref={ref} className="py-20 bg-navy-medium/50 relative overflow-hidden">
+      {/* Parallax background elements */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={isInView ? { opacity: 0.05 } : { opacity: 0 }}
+        transition={{ duration: 1 }}
+        className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent pointer-events-none"
+      />
+      
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
+                initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.9 }}
+                transition={{ 
+                  duration: 0.5, 
+                  delay: index * 0.12,
+                  ease: [0.16, 1, 0.3, 1]
+                }}
               >
                 <Card className="p-8 bg-card border-border hover:border-primary/50 transition-all text-center group h-full">
                   <div className="space-y-2">
