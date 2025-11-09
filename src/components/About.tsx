@@ -159,13 +159,13 @@ const About = () => {
             <div className="grid md:grid-cols-2 gap-4">
               {certifications.map((cert, index) => (
                 cert.link ? (
-                  <a key={index} href={cert.link} target="_blank" rel="noopener noreferrer">
-                    <Card className="p-6 bg-card border-border hover:border-primary/50 transition-all cursor-pointer hover:scale-105 transition-transform">
+                  <a key={index} href={cert.link} target="_blank" rel="noopener noreferrer" className="h-full block">
+                    <Card className="p-6 bg-card border-border hover:border-primary/50 transition-all cursor-pointer hover:scale-105 transition-transform h-full">
                       <p className="text-muted-foreground">{cert.name}</p>
                     </Card>
                   </a>
                 ) : (
-                  <Card key={index} className="p-6 bg-card border-border hover:border-primary/50 transition-all hover:scale-105 transition-transform">
+                  <Card key={index} className="p-6 bg-card border-border hover:border-primary/50 transition-all hover:scale-105 transition-transform h-full">
                     <p className="text-muted-foreground">{cert.name}</p>
                   </Card>
                 )
