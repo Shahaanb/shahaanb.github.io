@@ -78,9 +78,13 @@ const Hero = () => {
                     href={social.href}
                     target={social.href.startsWith('http') ? "_blank" : undefined}
                     rel={social.href.startsWith('http') ? "noopener noreferrer" : undefined}
-                    initial={{ opacity: 0, scale: 0.5 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.3, delay: 1.2 + index * 0.1 }}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ 
+                      duration: 0.6, 
+                      delay: 1.2 + index * 0.15,
+                      ease: [0.16, 1, 0.3, 1]
+                    }}
                     className="w-10 h-10 rounded-lg border border-border hover:border-primary hover:text-primary hover:scale-110 transition-all flex items-center justify-center"
                     aria-label={social.label}
                   >
