@@ -21,7 +21,7 @@ interface Project {
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   const projects: Project[] = [
     {
@@ -116,11 +116,11 @@ const Projects = () => {
             {projects.map((project, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.9 }}
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.95 }}
                 transition={{ 
-                  duration: 0.6, 
-                  delay: index * 0.1,
+                  duration: 0.4, 
+                  delay: index * 0.08,
                   ease: [0.16, 1, 0.3, 1]
                 }}
               >
