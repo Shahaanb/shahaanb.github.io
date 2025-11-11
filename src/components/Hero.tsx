@@ -21,11 +21,14 @@ const Hero = () => {
       id="home"
       className="min-h-screen flex items-center relative overflow-hidden"
     >
-      {/* Animated background gradient that follows mouse */}
+      {/* Fixed base glow */}
+      <div className="absolute inset-0 bg-gradient-glow pointer-events-none" />
+      
+      {/* Mouse-reactive edge glow */}
       <div 
-        className="absolute inset-0 pointer-events-none transition-all duration-300 ease-out"
+        className="absolute inset-0 pointer-events-none transition-all duration-500 ease-out opacity-60"
         style={{
-          background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, hsl(var(--primary) / 0.15) 0%, transparent 50%)`
+          background: `radial-gradient(circle 600px at ${mousePosition.x}% ${mousePosition.y}%, hsl(var(--primary) / 0.12) 0%, transparent 60%)`
         }}
       />
       

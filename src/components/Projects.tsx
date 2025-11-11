@@ -6,6 +6,7 @@ import { Github, ExternalLink, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
+import { useParallax } from "@/hooks/use-parallax";
 
 interface Project {
   title: string;
@@ -22,6 +23,7 @@ const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const parallaxOffset = useParallax(0.35);
 
   const projects: Project[] = [
     {
@@ -90,8 +92,13 @@ const Projects = () => {
   ];
 
   return (
-    <section ref={ref} id="projects" className="py-32">
-      <div className="container mx-auto px-4">
+    <section ref={ref} id="projects" className="py-32 relative overflow-hidden">
+      {/* Parallax background */}
+      <div 
+        className="absolute inset-0 bg-gradient-to-tr from-primary/8 via-transparent to-primary/5 pointer-events-none"
+        style={{ transform: `translateY(${parallaxOffset}px)` }}
+      />
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}

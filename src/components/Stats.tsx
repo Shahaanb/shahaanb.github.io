@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { useCounter } from "@/hooks/use-counter";
+import { useParallax } from "@/hooks/use-parallax";
 
 const Stats = () => {
   const ref = useRef(null);
@@ -32,15 +33,14 @@ const Stats = () => {
   const counter1 = useCounter(stats[0].number, 2000);
   const counter2 = useCounter(stats[1].number, 1800);
   const counter3 = useCounter(stats[2].number, 2200);
+  const parallaxOffset = useParallax(0.2);
 
   return (
     <section ref={ref} className="py-20 bg-navy-medium/50 relative overflow-hidden">
       {/* Parallax background elements */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={isInView ? { opacity: 0.05 } : { opacity: 0 }}
-        transition={{ duration: 1 }}
+      <div 
         className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent pointer-events-none"
+        style={{ transform: `translateY(${parallaxOffset}px)` }}
       />
       
       <div className="container mx-auto px-4">

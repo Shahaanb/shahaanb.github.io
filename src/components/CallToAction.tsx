@@ -3,18 +3,18 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { useParallax } from "@/hooks/use-parallax";
 
 const CallToAction = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const parallaxOffset = useParallax(0.15);
 
   return (
     <section className="py-12 bg-navy-medium/30 relative overflow-hidden">
-      <motion.div 
-        initial={{ scale: 0.8, opacity: 0 }}
-        animate={isInView ? { scale: 1, opacity: 0.05 } : { scale: 0.8, opacity: 0 }}
-        transition={{ duration: 1 }}
-        className="absolute inset-0 bg-gradient-radial from-primary/30 to-transparent pointer-events-none"
+      <div 
+        className="absolute inset-0 bg-gradient-radial from-primary/20 to-transparent pointer-events-none"
+        style={{ transform: `translateY(${parallaxOffset}px)` }}
       />
       <div className="container mx-auto px-4 relative z-10">
         <motion.div

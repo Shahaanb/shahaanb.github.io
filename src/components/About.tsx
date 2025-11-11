@@ -3,10 +3,12 @@ import { GraduationCap, Briefcase, Award } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import { useParallax } from "@/hooks/use-parallax";
 
 const About = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const parallaxOffset = useParallax(0.25);
   const education = [
     {
       school: "SVKM's NMIMS MPSTME",
@@ -62,11 +64,9 @@ const About = () => {
   return (
     <section ref={ref} id="about" className="py-32 bg-navy-dark/50 relative overflow-hidden">
       {/* Subtle parallax background */}
-      <motion.div 
-        initial={{ opacity: 0, scale: 1.1 }}
-        animate={isInView ? { opacity: 0.03, scale: 1 } : { opacity: 0, scale: 1.1 }}
-        transition={{ duration: 1.2 }}
+      <div 
         className="absolute inset-0 bg-gradient-to-br from-primary/20 via-transparent to-primary/10 pointer-events-none"
+        style={{ transform: `translateY(${parallaxOffset}px)` }}
       />
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-6xl mx-auto">
