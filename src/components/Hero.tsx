@@ -1,33 +1,15 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
 
 const Hero = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth) * 100;
-      const y = (e.clientY / window.innerHeight) * 100;
-      setMousePosition({ x, y });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
 
   return (
     <section
       id="home"
       className="min-h-screen flex items-center relative overflow-hidden"
     >
-      {/* Animated background gradient that follows mouse */}
-      <div 
-        className="absolute inset-0 pointer-events-none transition-all duration-300 ease-out"
-        style={{
-          background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, hsl(var(--primary) / 0.15) 0%, transparent 50%)`
-        }}
-      />
+      {/* Animated background gradient */}
+      <div className="absolute inset-0 bg-gradient-glow pointer-events-none" />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex items-center justify-center min-h-screen py-20">
@@ -96,14 +78,9 @@ const Hero = () => {
                     href={social.href}
                     target={social.href.startsWith('http') ? "_blank" : undefined}
                     rel={social.href.startsWith('http') ? "noopener noreferrer" : undefined}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ 
-                      duration: 0.6, 
-                      delay: 1.2 + index * 0.15,
-                      ease: [0.16, 1, 0.3, 1]
-                    }}
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3, delay: 1.2 + index * 0.1 }}
                     className="w-10 h-10 rounded-lg border border-border hover:border-primary hover:text-primary hover:scale-110 transition-all flex items-center justify-center"
                     aria-label={social.label}
                   >

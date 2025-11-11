@@ -116,11 +116,11 @@ const Projects = () => {
             {projects.map((project, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.9 }}
+                initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 30, scale: 0.95 }}
                 transition={{ 
-                  duration: 0.7, 
-                  delay: index * 0.12,
+                  duration: 0.4, 
+                  delay: index * 0.08,
                   ease: [0.16, 1, 0.3, 1]
                 }}
               >
