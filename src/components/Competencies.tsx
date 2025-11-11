@@ -1,7 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { Brain, MessageSquare, Smartphone, Code, TrendingUp, Image } from "lucide-react";
 import { motion } from "framer-motion";
-import { useScrollDirection } from "@/hooks/use-scroll-direction";
+import { useInView } from "framer-motion";
+import { useRef } from "react";
 
 const Competencies = () => {
   const competencies = [
@@ -37,7 +38,8 @@ const Competencies = () => {
     },
   ];
 
-  const { ref, isInView, scrollDirection } = useScrollDirection({ margin: "-100px" });
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <section id="competencies" className="py-32 bg-navy-medium/30">
@@ -69,16 +71,10 @@ const Competencies = () => {
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 40, scale: 0.95 }}
-                  animate={
-                    isInView 
-                      ? { opacity: 1, y: 0, scale: 1 } 
-                      : scrollDirection === 'up' 
-                        ? { opacity: 0, y: -40, scale: 0.95 }
-                        : { opacity: 0, y: 40, scale: 0.95 }
-                  }
+                  animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 40, scale: 0.95 }}
                   transition={{ 
                     duration: 0.45, 
-                    delay: isInView ? index * 0.08 : 0,
+                    delay: index * 0.08,
                     ease: [0.16, 1, 0.3, 1]
                   }}
                 >
