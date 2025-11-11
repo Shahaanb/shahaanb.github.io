@@ -3,7 +3,6 @@ import { Brain, MessageSquare, Smartphone, Code, TrendingUp, Image } from "lucid
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { useParallax } from "@/hooks/use-parallax";
 
 const Competencies = () => {
   const competencies = [
@@ -41,16 +40,10 @@ const Competencies = () => {
 
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const parallaxOffset = useParallax(0.3);
 
   return (
-    <section id="competencies" className="py-32 bg-navy-medium/30 relative overflow-hidden">
-      {/* Parallax background */}
-      <div 
-        className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 pointer-events-none"
-        style={{ transform: `translateY(${parallaxOffset}px)` }}
-      />
-      <div className="container mx-auto px-4 relative z-10">
+    <section id="competencies" className="py-32 bg-navy-medium/30">
+      <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
           <motion.div
             ref={ref}

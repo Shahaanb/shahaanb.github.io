@@ -6,7 +6,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Mail, Phone, Linkedin, Github } from "lucide-react";
 import { toast } from "sonner";
 import emailjs from "@emailjs/browser";
-import { useParallax } from "@/hooks/use-parallax";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -14,7 +13,6 @@ const Contact = () => {
     email: "",
     message: "",
   });
-  const parallaxOffset = useParallax(0.2);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,13 +65,8 @@ const Contact = () => {
   ];
 
   return (
-    <section id="contact" className="py-32 bg-navy-dark/50 relative overflow-hidden">
-      {/* Parallax background */}
-      <div 
-        className="absolute inset-0 bg-gradient-to-tl from-primary/10 via-transparent to-primary/5 pointer-events-none"
-        style={{ transform: `translateY(${parallaxOffset}px)` }}
-      />
-      <div className="container mx-auto px-4 relative z-10">
+    <section id="contact" className="py-32 bg-navy-dark/50">
+      <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
           <div className="mb-16">
             <p className="text-primary text-sm font-semibold tracking-wider uppercase mb-4">
