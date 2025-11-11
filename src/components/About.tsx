@@ -1,12 +1,10 @@
 import { Card } from "@/components/ui/card";
 import { GraduationCap, Briefcase, Award } from "lucide-react";
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useScrollDirection } from "@/hooks/use-scroll-direction";
 
 const About = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-100px" });
+  const { ref, isInView, scrollDirection } = useScrollDirection({ margin: "-100px" });
   const education = [
     {
       school: "SVKM's NMIMS MPSTME",
@@ -122,8 +120,14 @@ const About = () => {
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, x: -20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
-                  transition={{ duration: 0.4, delay: 0.5 + index * 0.1 }}
+                  animate={
+                    isInView 
+                      ? { opacity: 1, x: 0 } 
+                      : scrollDirection === 'up' 
+                        ? { opacity: 0, x: 20 }
+                        : { opacity: 0, x: -20 }
+                  }
+                  transition={{ duration: 0.4, delay: isInView ? 0.5 + index * 0.1 : 0 }}
                 >
                   <Card className="p-6 bg-card border-border hover:border-primary/50 transition-all hover:scale-105">
                     <h4 className="text-xl font-semibold text-primary mb-2">{edu.school}</h4>
@@ -151,8 +155,14 @@ const About = () => {
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, x: 20 }}
-                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 20 }}
-                  transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
+                  animate={
+                    isInView 
+                      ? { opacity: 1, x: 0 } 
+                      : scrollDirection === 'up' 
+                        ? { opacity: 0, x: -20 }
+                        : { opacity: 0, x: 20 }
+                  }
+                  transition={{ duration: 0.4, delay: isInView ? 0.7 + index * 0.1 : 0 }}
                 >
                   <Card className="p-6 bg-card border-border hover:border-primary/50 transition-all hover:scale-105">
                     <h4 className="text-xl font-semibold text-primary mb-2">{exp.title}</h4>
@@ -182,8 +192,12 @@ const About = () => {
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, scale: 0.95 }}
-                  animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.3, delay: 0.9 + index * 0.07 }}
+                  animate={
+                    isInView 
+                      ? { opacity: 1, scale: 1 } 
+                      : { opacity: 0, scale: 0.95 }
+                  }
+                  transition={{ duration: 0.3, delay: isInView ? 0.9 + index * 0.07 : 0 }}
                   className="h-full"
                 >
                   {cert.link ? (

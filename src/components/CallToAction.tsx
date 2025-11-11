@@ -1,11 +1,10 @@
 import { ArrowDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useScrollDirection } from "@/hooks/use-scroll-direction";
 
 const CallToAction = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-100px" });
+  const { ref, isInView } = useScrollDirection({ margin: "-100px" });
 
   return (
     <section className="py-12 bg-navy-medium/30 relative overflow-hidden">

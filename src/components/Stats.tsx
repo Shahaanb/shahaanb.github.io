@@ -1,11 +1,9 @@
 import { Card } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useScrollDirection } from "@/hooks/use-scroll-direction";
 
 const Stats = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-100px" });
+  const { ref, isInView, scrollDirection } = useScrollDirection({ margin: "-100px" });
   const stats = [
     {
       number: "7+",
@@ -41,10 +39,16 @@ const Stats = () => {
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.9 }}
+                animate={
+                  isInView 
+                    ? { opacity: 1, y: 0, scale: 1 } 
+                    : scrollDirection === 'up' 
+                      ? { opacity: 0, y: -50, scale: 0.9 }
+                      : { opacity: 0, y: 50, scale: 0.9 }
+                }
                 transition={{ 
                   duration: 0.5, 
-                  delay: index * 0.12,
+                  delay: isInView ? index * 0.12 : 0,
                   ease: [0.16, 1, 0.3, 1]
                 }}
               >

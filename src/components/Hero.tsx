@@ -1,15 +1,33 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 const Hero = () => {
+  const [mousePosition, setMousePosition] = useState({ x: 50, y: 50 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      setMousePosition({ x, y });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   return (
     <section
       id="home"
       className="min-h-screen flex items-center relative overflow-hidden"
     >
-      {/* Animated background gradient */}
-      <div className="absolute inset-0 bg-gradient-glow pointer-events-none" />
+      {/* Animated background gradient that follows mouse */}
+      <div 
+        className="absolute inset-0 pointer-events-none transition-all duration-300 ease-out"
+        style={{
+          background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, hsl(var(--primary) / 0.15) 0%, transparent 50%)`
+        }}
+      />
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex items-center justify-center min-h-screen py-20">
@@ -79,7 +97,8 @@ const Hero = () => {
                     target={social.href.startsWith('http') ? "_blank" : undefined}
                     rel={social.href.startsWith('http') ? "noopener noreferrer" : undefined}
                     initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
                     transition={{ 
                       duration: 0.6, 
                       delay: 1.2 + index * 0.15,

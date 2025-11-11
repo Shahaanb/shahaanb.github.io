@@ -1,11 +1,11 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Github, ExternalLink, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { useScrollDirection } from "@/hooks/use-scroll-direction";
 
 interface Project {
   title: string;
@@ -20,8 +20,7 @@ interface Project {
 
 const Projects = () => {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: false, margin: "-100px" });
+  const { ref, isInView, scrollDirection } = useScrollDirection({ margin: "-100px" });
 
   const projects: Project[] = [
     {
@@ -117,10 +116,16 @@ const Projects = () => {
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 50, scale: 0.9 }}
-                animate={isInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.9 }}
+                animate={
+                  isInView 
+                    ? { opacity: 1, y: 0, scale: 1 } 
+                    : scrollDirection === 'up' 
+                      ? { opacity: 0, y: -50, scale: 0.9 }
+                      : { opacity: 0, y: 50, scale: 0.9 }
+                }
                 transition={{ 
                   duration: 0.7, 
-                  delay: index * 0.12,
+                  delay: isInView ? index * 0.12 : 0,
                   ease: [0.16, 1, 0.3, 1]
                 }}
               >
