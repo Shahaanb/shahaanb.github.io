@@ -114,7 +114,7 @@ const About = () => {
         }}
         animate={{
           backgroundPosition: ['0px 0px', '50px 50px'],
-          opacity: [0.15, 0.8, 0.15],
+          opacity: [0.03, 0.08, 0.03],
         }}
         transition={{
           backgroundPosition: {
