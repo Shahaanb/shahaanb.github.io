@@ -17,7 +17,7 @@ interface Project {
   demo?: string;
 }
 
-const ProjectCard = ({ project, index }: { project: Project; index: number }) => {
+const ProjectCard = ({ project, index, onLearnMore }: { project: Project; index: number; onLearnMore: (project: Project) => void }) => {
   const [isHovered, setIsHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   
@@ -134,6 +134,7 @@ const ProjectCard = ({ project, index }: { project: Project; index: number }) =>
               size="sm"
               variant="outline"
               className="flex-1 group/btn"
+              onClick={() => onLearnMore(project)}
             >
               <motion.div
                 whileHover={{ rotate: 360 }}
@@ -292,11 +293,78 @@ const Projects = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project, index) => (
-              <ProjectCard key={index} project={project} index={index} />
+              <ProjectCard 
+                key={index} 
+                project={project} 
+                index={index}
+                onLearnMore={setSelectedProject}
+              />
             ))}
           </div>
         </div>
       </div>
+
+      {/* Project Detail Modal */}
+      <Dialog open={!!selectedProject} onOpenChange={() => setSelectedProject(null)}>
+        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto bg-card">
+          {selectedProject && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="text-2xl text-primary">
+                  {selectedProject.title}
+                </DialogTitle>
+              </DialogHeader>
+
+              <div className="space-y-6">
+                <div>
+                  <h4 className="text-lg font-semibold mb-2 text-foreground">The Problem</h4>
+                  <p className="text-muted-foreground">{selectedProject.problem}</p>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-semibold mb-2 text-foreground">My Solution</h4>
+                  <p className="text-muted-foreground">{selectedProject.solution}</p>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-semibold mb-2 text-foreground">My Role</h4>
+                  <p className="text-muted-foreground">{selectedProject.role}</p>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-semibold mb-3 text-foreground">Technologies Used</h4>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedProject.technologies.map((tech, index) => (
+                      <Badge key={index} variant="secondary">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex gap-3 pt-4">
+                  {selectedProject.github && (
+                    <Button variant="outline" asChild className="flex-1">
+                      <a href={selectedProject.github} target="_blank" rel="noopener noreferrer">
+                        <Github className="mr-2 h-4 w-4" />
+                        View on GitHub
+                      </a>
+                    </Button>
+                  )}
+                  {selectedProject.demo && (
+                    <Button className="flex-1 bg-gradient-accent" asChild>
+                      <a href={selectedProject.demo} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="mr-2 h-4 w-4" />
+                        Live Demo
+                      </a>
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };
