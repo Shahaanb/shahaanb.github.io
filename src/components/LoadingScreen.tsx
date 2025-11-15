@@ -6,27 +6,30 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    // Simulate loading progress - minimum 3 seconds to see animations
     const startTime = Date.now();
-    const minLoadTime = 3000; // Minimum 3 seconds
+    const minLoadTime = 3000;
     
     const interval = setInterval(() => {
       setProgress((prev) => {
-        const elapsed = Date.now() - startTime;
-        
-        if (prev >= 100 && elapsed >= minLoadTime) {
+        if (prev >= 100) {
           clearInterval(interval);
-          setIsComplete(true);
+          
+          const elapsed = Date.now() - startTime;
+          const remaining = Math.max(0, minLoadTime - elapsed);
+          
           setTimeout(() => {
-            onLoadingComplete();
-          }, 500);
+            setIsComplete(true);
+            setTimeout(() => {
+              onLoadingComplete();
+            }, 500);
+          }, remaining);
+          
           return 100;
         }
-        // Slower, more controlled progress
-        const increment = prev < 60 ? 1.5 : prev < 85 ? 3 : 5;
+        const increment = prev < 70 ? 2 : prev < 90 ? 3 : 5;
         return Math.min(prev + increment, 100);
       });
-    }, 80);
+    }, 60);
 
     return () => clearInterval(interval);
   }, [onLoadingComplete]);
@@ -40,13 +43,20 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
           transition={{ duration: 0.5 }}
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-background"
         >
-          {/* Animated background gradient */}
           <div className="absolute inset-0 bg-gradient-glow" />
           
-          {/* Flowing curved lines that start from center and move outward */}
-          {[...Array(12)].map((_, i) => {
-            const angle = (i / 12) * 360; // Distribute evenly in circle
-            const speed = 8 + (i % 3) * 4; // Varying speeds: 8s, 12s, 16s
+          {[...Array(25)].map((_, i) => {
+            const angle = (i / 25) * 360;
+            const centerX = 50;
+            const centerY = 50;
+            
+            const endX = centerX + Math.cos(angle * Math.PI / 180) * 60;
+            const endY = centerY + Math.sin(angle * Math.PI / 180) * 60;
+            
+            const control1X = centerX + Math.cos((angle + 30) * Math.PI / 180) * 30;
+            const control1Y = centerY + Math.sin((angle + 30) * Math.PI / 180) * 30;
+            const control2X = centerX + Math.cos((angle - 30) * Math.PI / 180) * 45;
+            const control2Y = centerY + Math.sin((angle - 30) * Math.PI / 180) * 45;
             
             return (
               <motion.svg
@@ -54,41 +64,74 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
                 className="absolute inset-0 w-full h-full pointer-events-none"
               >
                 <motion.path
-                  stroke={`rgba(92, 225, 230, ${0.25 + (i % 3) * 0.15})`}
+                  d={`M ${centerX}% ${centerY}% C ${control1X}% ${control1Y}%, ${control2X}% ${control2Y}%, ${endX}% ${endY}%`}
+                  stroke={`rgba(92, 225, 230, ${0.2 + (i % 3) * 0.1})`}
                   strokeWidth={1 + (i % 3) * 0.5}
                   fill="none"
                   strokeLinecap="round"
-                  initial={{
-                    d: `M 50% 50% C 50% 50%, 50% 50%, 50% 50%`,
-                  }}
                   animate={{
                     d: [
-                      // Start from center
-                      `M 50% 50% C 50% 50%, 50% 50%, 50% 50%`,
-                      // Expand outward in different directions
-                      `M 50% 50% C ${50 + Math.cos(angle * Math.PI / 180) * 20}% ${50 + Math.sin(angle * Math.PI / 180) * 20}%, ${50 + Math.cos(angle * Math.PI / 180) * 35}% ${50 + Math.sin(angle * Math.PI / 180) * 35}%, ${50 + Math.cos(angle * Math.PI / 180) * 50}% ${50 + Math.sin(angle * Math.PI / 180) * 50}%`,
-                      // Move around in curves
-                      `M 50% 50% C ${50 + Math.cos((angle + 60) * Math.PI / 180) * 25}% ${50 + Math.sin((angle + 60) * Math.PI / 180) * 25}%, ${50 + Math.cos((angle - 30) * Math.PI / 180) * 40}% ${50 + Math.sin((angle - 30) * Math.PI / 180) * 40}%, ${50 + Math.cos((angle + 90) * Math.PI / 180) * 55}% ${50 + Math.sin((angle + 90) * Math.PI / 180) * 55}%`,
-                      // Different curve pattern
-                      `M 50% 50% C ${50 + Math.cos((angle - 45) * Math.PI / 180) * 30}% ${50 + Math.sin((angle - 45) * Math.PI / 180) * 30}%, ${50 + Math.cos((angle + 45) * Math.PI / 180) * 35}% ${50 + Math.sin((angle + 45) * Math.PI / 180) * 35}%, ${50 + Math.cos(angle * Math.PI / 180) * 60}% ${50 + Math.sin(angle * Math.PI / 180) * 60}%`,
-                      // Return to center
-                      `M 50% 50% C 50% 50%, 50% 50%, 50% 50%`,
+                      `M ${centerX}% ${centerY}% C ${control1X}% ${control1Y}%, ${control2X}% ${control2Y}%, ${endX}% ${endY}%`,
+                      `M ${centerX}% ${centerY}% C ${control1X + 20}% ${control1Y - 15}%, ${control2X - 15}% ${control2Y + 20}%, ${endX + 10}% ${endY - 10}%`,
+                      `M ${centerX}% ${centerY}% C ${control1X - 15}% ${control1Y + 20}%, ${control2X + 20}% ${control2Y - 15}%, ${endX - 10}% ${endY + 15}%`,
+                      `M ${centerX}% ${centerY}% C ${control1X}% ${control1Y}%, ${control2X}% ${control2Y}%, ${endX}% ${endY}%`,
                     ],
                   }}
                   transition={{
-                    duration: speed,
+                    duration: 8 + (i % 5) * 2,
                     repeat: Infinity,
                     ease: "easeInOut",
-                    delay: i * 0.3,
+                    delay: (i % 8) * 0.2,
+                  }}
+                />
+              </motion.svg>
+            );
+          })}
+          
+          {[...Array(15)].map((_, i) => {
+            const angle = (i / 15) * 360 + 180;
+            const centerX = 50;
+            const centerY = 50;
+            
+            const radius1 = 25 + (i % 3) * 10;
+            const radius2 = 40 + (i % 4) * 8;
+            
+            const x1 = centerX + Math.cos(angle * Math.PI / 180) * radius1;
+            const y1 = centerY + Math.sin(angle * Math.PI / 180) * radius1;
+            const x2 = centerX + Math.cos((angle + 90) * Math.PI / 180) * radius2;
+            const y2 = centerY + Math.sin((angle + 90) * Math.PI / 180) * radius2;
+            
+            return (
+              <motion.svg
+                key={`swirl-${i}`}
+                className="absolute inset-0 w-full h-full pointer-events-none"
+              >
+                <motion.path
+                  d={`M ${centerX}% ${centerY}% Q ${x1}% ${y1}%, ${x2}% ${y2}%`}
+                  stroke={`rgba(92, 225, 230, 0.25)`}
+                  strokeWidth={1.5}
+                  fill="none"
+                  strokeLinecap="round"
+                  animate={{
+                    d: [
+                      `M ${centerX}% ${centerY}% Q ${x1}% ${y1}%, ${x2}% ${y2}%`,
+                      `M ${centerX}% ${centerY}% Q ${x1 + 15}% ${y1 - 12}%, ${x2 - 10}% ${y2 + 15}%`,
+                      `M ${centerX}% ${centerY}% Q ${x1 - 12}% ${y1 + 15}%, ${x2 + 12}% ${y2 - 10}%`,
+                      `M ${centerX}% ${centerY}% Q ${x1}% ${y1}%, ${x2}% ${y2}%`,
+                    ],
+                  }}
+                  transition={{
+                    duration: 10 + (i % 4) * 2.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: (i % 6) * 0.3,
                   }}
                 />
               </motion.svg>
             );
           })}
 
-          {/* Main content */}
           <div className="relative z-10 flex flex-col items-center gap-8">
-            {/* Animated Logo */}
             <motion.div
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
@@ -100,7 +143,6 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
               }}
               className="relative"
             >
-              {/* Outer rotating ring */}
               <motion.div
                 className="absolute inset-0 rounded-full"
                 style={{
@@ -117,7 +159,6 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
                 <div className="w-full h-full bg-background rounded-full" />
               </motion.div>
 
-              {/* Logo */}
               <motion.div
                 className="relative w-24 h-24 rounded-full bg-gradient-accent flex items-center justify-center shadow-glow"
                 animate={{
@@ -149,7 +190,6 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
               </motion.div>
             </motion.div>
 
-            {/* Loading text */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -175,16 +215,13 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
               </p>
             </motion.div>
 
-            {/* Progress bar */}
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.8 }}
               className="w-64"
             >
-              {/* Progress bar container */}
               <div className="relative h-2 bg-navy-light rounded-full overflow-hidden">
-                {/* Animated background shimmer */}
                 <motion.div
                   className="absolute inset-0"
                   style={{
@@ -200,14 +237,12 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
                   }}
                 />
                 
-                {/* Progress fill */}
                 <motion.div
                   className="h-full bg-gradient-accent relative"
                   initial={{ width: "0%" }}
                   animate={{ width: `${progress}%` }}
                   transition={{ duration: 0.3 }}
                 >
-                  {/* Glow effect */}
                   <motion.div
                     className="absolute right-0 top-0 bottom-0 w-8 blur-lg"
                     style={{
@@ -224,7 +259,6 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
                 </motion.div>
               </div>
               
-              {/* Progress percentage */}
               <motion.p
                 className="text-center text-primary text-sm font-semibold mt-3"
                 animate={{
@@ -239,7 +273,6 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
               </motion.p>
             </motion.div>
 
-            {/* Loading dots */}
             <div className="flex gap-2">
               {[0, 1, 2].map((i) => (
                 <motion.div
