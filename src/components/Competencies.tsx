@@ -184,34 +184,6 @@ const CompetencyCard = ({ competency, index, Icon }: any) => {
           transition={{ duration: 3, repeat: Infinity }}
         />
 
-        {/* Particle effects on hover */}
-        {isHovered && (
-          <>
-            {[...Array(6)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-1 h-1 rounded-full"
-                style={{
-                  backgroundColor: competency.color,
-                  left: `${50}%`,
-                  top: `${50}%`,
-                }}
-                animate={{
-                  x: [0, (Math.random() - 0.5) * 200],
-                  y: [0, (Math.random() - 0.5) * 200],
-                  opacity: [1, 0],
-                  scale: [1, 0],
-                }}
-                transition={{
-                  duration: 1 + Math.random(),
-                  repeat: Infinity,
-                  delay: i * 0.1,
-                }}
-              />
-            ))}
-          </>
-        )}
-
         <div className="relative z-10">
           <motion.div 
             className="mb-4 p-3 bg-primary/10 rounded-lg inline-block group-hover:bg-primary/20 transition-colors"
