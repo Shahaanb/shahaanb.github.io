@@ -45,12 +45,7 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
         >
           <div className="absolute inset-0 bg-gradient-glow" />
           
-          {/* Test: Simple visible line to debug */}
-          <svg className="absolute inset-0 w-full h-full pointer-events-none">
-            <line x1="10%" y1="10%" x2="90%" y2="90%" stroke="rgba(92, 225, 230, 0.8)" strokeWidth="3" />
-            <line x1="90%" y1="10%" x2="10%" y2="90%" stroke="rgba(92, 225, 230, 0.8)" strokeWidth="3" />
-          </svg>
-          
+          {/* Flowing curved lines from center */}
           {[...Array(25)].map((_, i) => {
             const angle = (i / 25) * 360;
             const centerX = 50;
@@ -89,6 +84,51 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
                     repeat: Infinity,
                     ease: "easeInOut",
                     delay: (i % 8) * 0.2,
+                  }}
+                />
+              </svg>
+            );
+          })}
+          
+          {/* Additional swirling lines */}
+          {[...Array(15)].map((_, i) => {
+            const angle = (i / 15) * 360 + 180;
+            const centerX = 50;
+            const centerY = 50;
+            
+            const radius1 = 15 + (i % 3) * 5;
+            const radius2 = 25 + (i % 4) * 5;
+            
+            const x1 = centerX + Math.cos(angle * Math.PI / 180) * radius1;
+            const y1 = centerY + Math.sin(angle * Math.PI / 180) * radius1;
+            const x2 = centerX + Math.cos((angle + 90) * Math.PI / 180) * radius2;
+            const y2 = centerY + Math.sin((angle + 90) * Math.PI / 180) * radius2;
+            
+            return (
+              <svg
+                key={`swirl-${i}`}
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                style={{ zIndex: 1 }}
+              >
+                <motion.path
+                  d={`M ${centerX}% ${centerY}% Q ${x1}% ${y1}%, ${x2}% ${y2}%`}
+                  stroke="rgba(92, 225, 230, 0.5)"
+                  strokeWidth="2"
+                  fill="none"
+                  strokeLinecap="round"
+                  animate={{
+                    d: [
+                      `M ${centerX}% ${centerY}% Q ${x1}% ${y1}%, ${x2}% ${y2}%`,
+                      `M ${centerX}% ${centerY}% Q ${x1 + 8}% ${y1 - 6}%, ${x2 - 5}% ${y2 + 8}%`,
+                      `M ${centerX}% ${centerY}% Q ${x1 - 6}% ${y1 + 8}%, ${x2 + 6}% ${y2 - 5}%`,
+                      `M ${centerX}% ${centerY}% Q ${x1}% ${y1}%, ${x2}% ${y2}%`,
+                    ],
+                  }}
+                  transition={{
+                    duration: 10 + (i % 4) * 2.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                    delay: (i % 6) * 0.3,
                   }}
                 />
               </svg>
