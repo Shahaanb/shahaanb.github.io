@@ -45,35 +45,42 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
         >
           <div className="absolute inset-0 bg-gradient-glow" />
           
+          {/* Test: Simple visible line to debug */}
+          <svg className="absolute inset-0 w-full h-full pointer-events-none">
+            <line x1="10%" y1="10%" x2="90%" y2="90%" stroke="rgba(92, 225, 230, 0.8)" strokeWidth="3" />
+            <line x1="90%" y1="10%" x2="10%" y2="90%" stroke="rgba(92, 225, 230, 0.8)" strokeWidth="3" />
+          </svg>
+          
           {[...Array(25)].map((_, i) => {
             const angle = (i / 25) * 360;
             const centerX = 50;
             const centerY = 50;
             
-            const endX = centerX + Math.cos(angle * Math.PI / 180) * 60;
-            const endY = centerY + Math.sin(angle * Math.PI / 180) * 60;
+            const endX = centerX + Math.cos(angle * Math.PI / 180) * 40;
+            const endY = centerY + Math.sin(angle * Math.PI / 180) * 40;
             
-            const control1X = centerX + Math.cos((angle + 30) * Math.PI / 180) * 30;
-            const control1Y = centerY + Math.sin((angle + 30) * Math.PI / 180) * 30;
-            const control2X = centerX + Math.cos((angle - 30) * Math.PI / 180) * 45;
-            const control2Y = centerY + Math.sin((angle - 30) * Math.PI / 180) * 45;
+            const control1X = centerX + Math.cos((angle + 30) * Math.PI / 180) * 20;
+            const control1Y = centerY + Math.sin((angle + 30) * Math.PI / 180) * 20;
+            const control2X = centerX + Math.cos((angle - 30) * Math.PI / 180) * 30;
+            const control2Y = centerY + Math.sin((angle - 30) * Math.PI / 180) * 30;
             
             return (
-              <motion.svg
+              <svg
                 key={i}
                 className="absolute inset-0 w-full h-full pointer-events-none"
+                style={{ zIndex: 1 }}
               >
                 <motion.path
                   d={`M ${centerX}% ${centerY}% C ${control1X}% ${control1Y}%, ${control2X}% ${control2Y}%, ${endX}% ${endY}%`}
-                  stroke={`rgba(92, 225, 230, ${0.2 + (i % 3) * 0.1})`}
-                  strokeWidth={1 + (i % 3) * 0.5}
+                  stroke="rgba(92, 225, 230, 0.6)"
+                  strokeWidth="2"
                   fill="none"
                   strokeLinecap="round"
                   animate={{
                     d: [
                       `M ${centerX}% ${centerY}% C ${control1X}% ${control1Y}%, ${control2X}% ${control2Y}%, ${endX}% ${endY}%`,
-                      `M ${centerX}% ${centerY}% C ${control1X + 20}% ${control1Y - 15}%, ${control2X - 15}% ${control2Y + 20}%, ${endX + 10}% ${endY - 10}%`,
-                      `M ${centerX}% ${centerY}% C ${control1X - 15}% ${control1Y + 20}%, ${control2X + 20}% ${control2Y - 15}%, ${endX - 10}% ${endY + 15}%`,
+                      `M ${centerX}% ${centerY}% C ${control1X + 10}% ${control1Y - 10}%, ${control2X - 10}% ${control2Y + 10}%, ${endX + 5}% ${endY - 5}%`,
+                      `M ${centerX}% ${centerY}% C ${control1X - 10}% ${control1Y + 10}%, ${control2X + 10}% ${control2Y - 10}%, ${endX - 5}% ${endY + 5}%`,
                       `M ${centerX}% ${centerY}% C ${control1X}% ${control1Y}%, ${control2X}% ${control2Y}%, ${endX}% ${endY}%`,
                     ],
                   }}
@@ -84,7 +91,7 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
                     delay: (i % 8) * 0.2,
                   }}
                 />
-              </motion.svg>
+              </svg>
             );
           })}
           
