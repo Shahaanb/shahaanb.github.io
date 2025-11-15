@@ -32,7 +32,7 @@ const Navigation = () => {
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-navy-medium/95 backdrop-blur-md shadow-card" : "bg-transparent"
+        isScrolled ? "bg-navy-medium/80 backdrop-blur-xl shadow-card" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4">
@@ -76,9 +76,9 @@ const Navigation = () => {
           </button>
         </div>
 
-        {/* Mobile Menu - Fixed background issue */}
+        {/* Mobile Menu - Now edge to edge with glassmorphism */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-6 space-y-2 animate-fade-in border-t border-border bg-navy-medium/95 backdrop-blur-md rounded-b-lg">
+          <div className="md:hidden py-6 space-y-2 animate-fade-in border-t border-border/30 -mx-4 px-4 bg-navy-medium/70 backdrop-blur-xl">
             {navLinks.map((link) => (
               <a
                 key={link.href}
