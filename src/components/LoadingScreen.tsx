@@ -6,10 +6,15 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
   const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    // Simulate loading progress
+    // Simulate loading progress - minimum 3 seconds to see animations
+    const startTime = Date.now();
+    const minLoadTime = 3000; // Minimum 3 seconds
+    
     const interval = setInterval(() => {
       setProgress((prev) => {
-        if (prev >= 100) {
+        const elapsed = Date.now() - startTime;
+        
+        if (prev >= 100 && elapsed >= minLoadTime) {
           clearInterval(interval);
           setIsComplete(true);
           setTimeout(() => {
@@ -17,11 +22,11 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
           }, 500);
           return 100;
         }
-        // Accelerate progress as it gets closer to 100
-        const increment = prev < 50 ? 2 : prev < 80 ? 5 : 10;
+        // Slower, more controlled progress
+        const increment = prev < 60 ? 1.5 : prev < 85 ? 3 : 5;
         return Math.min(prev + increment, 100);
       });
-    }, 50);
+    }, 80);
 
     return () => clearInterval(interval);
   }, [onLoadingComplete]);
@@ -38,16 +43,10 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
           {/* Animated background gradient */}
           <div className="absolute inset-0 bg-gradient-glow" />
           
-          {/* Flowing curved lines that move in all directions */}
+          {/* Flowing curved lines that start from center and move outward */}
           {[...Array(12)].map((_, i) => {
-            const startX = -20 + (i * 10);
-            const startY = 10 + (i * 8);
-            const endX = 80 + (i * 5);
-            const endY = 90 - (i * 7);
-            const controlX1 = 20 + (i * 8);
-            const controlY1 = 40 + (i * 5);
-            const controlX2 = 60 - (i * 6);
-            const controlY2 = 60 - (i * 4);
+            const angle = (i / 12) * 360; // Distribute evenly in circle
+            const speed = 8 + (i % 3) * 4; // Varying speeds: 8s, 12s, 16s
             
             return (
               <motion.svg
@@ -55,24 +54,32 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
                 className="absolute inset-0 w-full h-full pointer-events-none"
               >
                 <motion.path
-                  d={`M ${startX}% ${startY}% C ${controlX1}% ${controlY1}%, ${controlX2}% ${controlY2}%, ${endX}% ${endY}%`}
-                  stroke={`rgba(92, 225, 230, 0.3)`}
-                  strokeWidth={1.5}
+                  stroke={`rgba(92, 225, 230, ${0.25 + (i % 3) * 0.15})`}
+                  strokeWidth={1 + (i % 3) * 0.5}
                   fill="none"
                   strokeLinecap="round"
+                  initial={{
+                    d: `M 50% 50% C 50% 50%, 50% 50%, 50% 50%`,
+                  }}
                   animate={{
                     d: [
-                      `M ${startX}% ${startY}% C ${controlX1}% ${controlY1}%, ${controlX2}% ${controlY2}%, ${endX}% ${endY}%`,
-                      `M ${startX + 15}% ${startY - 10}% C ${controlX1 + 20}% ${controlY1 - 15}%, ${controlX2 - 15}% ${controlY2 + 10}%, ${endX - 10}% ${endY + 8}%`,
-                      `M ${startX - 10}% ${startY + 12}% C ${controlX1 - 15}% ${controlY1 + 18}%, ${controlX2 + 10}% ${controlY2 - 8}%, ${endX + 12}% ${endY - 15}%`,
-                      `M ${startX}% ${startY}% C ${controlX1}% ${controlY1}%, ${controlX2}% ${controlY2}%, ${endX}% ${endY}%`,
+                      // Start from center
+                      `M 50% 50% C 50% 50%, 50% 50%, 50% 50%`,
+                      // Expand outward in different directions
+                      `M 50% 50% C ${50 + Math.cos(angle * Math.PI / 180) * 20}% ${50 + Math.sin(angle * Math.PI / 180) * 20}%, ${50 + Math.cos(angle * Math.PI / 180) * 35}% ${50 + Math.sin(angle * Math.PI / 180) * 35}%, ${50 + Math.cos(angle * Math.PI / 180) * 50}% ${50 + Math.sin(angle * Math.PI / 180) * 50}%`,
+                      // Move around in curves
+                      `M 50% 50% C ${50 + Math.cos((angle + 60) * Math.PI / 180) * 25}% ${50 + Math.sin((angle + 60) * Math.PI / 180) * 25}%, ${50 + Math.cos((angle - 30) * Math.PI / 180) * 40}% ${50 + Math.sin((angle - 30) * Math.PI / 180) * 40}%, ${50 + Math.cos((angle + 90) * Math.PI / 180) * 55}% ${50 + Math.sin((angle + 90) * Math.PI / 180) * 55}%`,
+                      // Different curve pattern
+                      `M 50% 50% C ${50 + Math.cos((angle - 45) * Math.PI / 180) * 30}% ${50 + Math.sin((angle - 45) * Math.PI / 180) * 30}%, ${50 + Math.cos((angle + 45) * Math.PI / 180) * 35}% ${50 + Math.sin((angle + 45) * Math.PI / 180) * 35}%, ${50 + Math.cos(angle * Math.PI / 180) * 60}% ${50 + Math.sin(angle * Math.PI / 180) * 60}%`,
+                      // Return to center
+                      `M 50% 50% C 50% 50%, 50% 50%, 50% 50%`,
                     ],
                   }}
                   transition={{
-                    duration: 15 + i * 2,
+                    duration: speed,
                     repeat: Infinity,
                     ease: "easeInOut",
-                    delay: i * 0.5,
+                    delay: i * 0.3,
                   }}
                 />
               </motion.svg>
