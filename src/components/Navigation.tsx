@@ -76,9 +76,9 @@ const Navigation = () => {
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Fixed background issue */}
         {isMobileMenuOpen && (
-          <div className="md:hidden py-6 space-y-2 animate-fade-in border-t border-border">
+          <div className="md:hidden py-6 space-y-2 animate-fade-in border-t border-border bg-navy-medium/95 backdrop-blur-md rounded-b-lg">
             {navLinks.map((link) => (
               <a
                 key={link.href}
