@@ -38,24 +38,62 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
           {/* Animated background gradient */}
           <div className="absolute inset-0 bg-gradient-glow" />
           
-          {/* Floating particles */}
-          {[...Array(30)].map((_, i) => (
-            <motion.div
+          {/* Flowing curved lines */}
+          {[...Array(8)].map((_, i) => (
+            <motion.svg
               key={i}
-              className="absolute w-1 h-1 bg-primary/30 rounded-full"
+              className="absolute inset-0 w-full h-full"
               style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
+                opacity: 0.15,
+              }}
+            >
+              <motion.path
+                d={`M ${-200 + i * 100} ${100 + i * 80} Q ${400 + i * 50} ${200 + i * 60}, ${800 + i * 100} ${150 + i * 90} T ${1600 + i * 150} ${200 + i * 100}`}
+                stroke="rgba(92, 225, 230, 0.6)"
+                strokeWidth="2"
+                fill="none"
+                initial={{
+                  pathLength: 0,
+                  pathOffset: 0,
+                }}
+                animate={{
+                  pathLength: [0, 1, 0],
+                  pathOffset: [0, 1, 2],
+                  x: [0, 50, 0],
+                  y: [0, -20, 0],
+                }}
+                transition={{
+                  duration: 8 + i * 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: i * 0.5,
+                }}
+              />
+            </motion.svg>
+          ))}
+          
+          {/* Additional wavy lines */}
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={`wave-${i}`}
+              className="absolute"
+              style={{
+                left: `${i * 15}%`,
+                top: `${20 + i * 10}%`,
+                width: '300px',
+                height: '2px',
+                background: 'linear-gradient(90deg, transparent, rgba(92, 225, 230, 0.4), transparent)',
               }}
               animate={{
-                y: [0, -30, 0],
-                opacity: [0.3, 0.8, 0.3],
-                scale: [1, 1.5, 1],
+                x: ['-100%', '200%'],
+                y: [0, Math.sin(i) * 50, 0],
+                opacity: [0, 0.6, 0],
               }}
               transition={{
-                duration: 3 + Math.random() * 2,
+                duration: 10 + i * 1.5,
                 repeat: Infinity,
-                delay: Math.random() * 2,
+                ease: "easeInOut",
+                delay: i * 1.2,
               }}
             />
           ))}
