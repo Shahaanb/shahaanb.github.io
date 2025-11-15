@@ -39,82 +39,40 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
           <div className="absolute inset-0 bg-gradient-glow" />
           
           {/* Flowing curved lines that move in all directions */}
-          {[...Array(15)].map((_, i) => {
-            const startX = Math.random() * 100;
-            const startY = Math.random() * 100;
-            const endX = Math.random() * 100;
-            const endY = Math.random() * 100;
-            const controlX1 = Math.random() * 100;
-            const controlY1 = Math.random() * 100;
-            const controlX2 = Math.random() * 100;
-            const controlY2 = Math.random() * 100;
+          {[...Array(12)].map((_, i) => {
+            const startX = -20 + (i * 10);
+            const startY = 10 + (i * 8);
+            const endX = 80 + (i * 5);
+            const endY = 90 - (i * 7);
+            const controlX1 = 20 + (i * 8);
+            const controlY1 = 40 + (i * 5);
+            const controlX2 = 60 - (i * 6);
+            const controlY2 = 60 - (i * 4);
             
             return (
               <motion.svg
                 key={i}
-                className="absolute inset-0 w-full h-full"
-                style={{ opacity: 0.2 }}
+                className="absolute inset-0 w-full h-full pointer-events-none"
               >
                 <motion.path
                   d={`M ${startX}% ${startY}% C ${controlX1}% ${controlY1}%, ${controlX2}% ${controlY2}%, ${endX}% ${endY}%`}
-                  stroke={`rgba(92, 225, 230, ${0.4 + Math.random() * 0.4})`}
-                  strokeWidth={1 + Math.random() * 2}
-                  fill="none"
-                  strokeLinecap="round"
-                  initial={{ pathLength: 0, opacity: 0 }}
-                  animate={{
-                    pathLength: [0, 1, 0.5, 0],
-                    opacity: [0, 0.8, 0.6, 0],
-                    d: [
-                      `M ${startX}% ${startY}% C ${controlX1}% ${controlY1}%, ${controlX2}% ${controlY2}%, ${endX}% ${endY}%`,
-                      `M ${startX + 10}% ${startY - 10}% C ${controlX1 + 15}% ${controlY1 - 15}%, ${controlX2 - 10}% ${controlY2 + 10}%, ${endX - 5}% ${endY + 5}%`,
-                      `M ${startX - 5}% ${startY + 15}% C ${controlX1 - 10}% ${controlY1 + 20}%, ${controlX2 + 5}% ${controlY2 - 5}%, ${endX + 10}% ${endY - 10}%`,
-                      `M ${startX}% ${startY}% C ${controlX1}% ${controlY1}%, ${controlX2}% ${controlY2}%, ${endX}% ${endY}%`,
-                    ],
-                  }}
-                  transition={{
-                    duration: 12 + i * 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: i * 0.8,
-                  }}
-                />
-              </motion.svg>
-            );
-          })}
-          
-          {/* Additional wavy flowing lines */}
-          {[...Array(10)].map((_, i) => {
-            const startX = Math.random() * 100;
-            const startY = Math.random() * 100;
-            
-            return (
-              <motion.svg
-                key={`wave-${i}`}
-                className="absolute inset-0 w-full h-full"
-                style={{ opacity: 0.15 }}
-              >
-                <motion.path
-                  d={`M ${startX}% ${startY}% Q ${startX + 20}% ${startY - 15}%, ${startX + 40}% ${startY + 10}% T ${startX + 80}% ${startY - 5}%`}
-                  stroke="rgba(92, 225, 230, 0.5)"
+                  stroke={`rgba(92, 225, 230, 0.3)`}
                   strokeWidth={1.5}
                   fill="none"
                   strokeLinecap="round"
                   animate={{
                     d: [
-                      `M ${startX}% ${startY}% Q ${startX + 20}% ${startY - 15}%, ${startX + 40}% ${startY + 10}% T ${startX + 80}% ${startY - 5}%`,
-                      `M ${startX - 10}% ${startY + 10}% Q ${startX + 15}% ${startY + 20}%, ${startX + 35}% ${startY - 10}% T ${startX + 75}% ${startY + 15}%`,
-                      `M ${startX + 5}% ${startY - 15}% Q ${startX + 25}% ${startY + 5}%, ${startX + 45}% ${startY + 15}% T ${startX + 85}% ${startY - 20}%`,
-                      `M ${startX}% ${startY}% Q ${startX + 20}% ${startY - 15}%, ${startX + 40}% ${startY + 10}% T ${startX + 80}% ${startY - 5}%`,
+                      `M ${startX}% ${startY}% C ${controlX1}% ${controlY1}%, ${controlX2}% ${controlY2}%, ${endX}% ${endY}%`,
+                      `M ${startX + 15}% ${startY - 10}% C ${controlX1 + 20}% ${controlY1 - 15}%, ${controlX2 - 15}% ${controlY2 + 10}%, ${endX - 10}% ${endY + 8}%`,
+                      `M ${startX - 10}% ${startY + 12}% C ${controlX1 - 15}% ${controlY1 + 18}%, ${controlX2 + 10}% ${controlY2 - 8}%, ${endX + 12}% ${endY - 15}%`,
+                      `M ${startX}% ${startY}% C ${controlX1}% ${controlY1}%, ${controlX2}% ${controlY2}%, ${endX}% ${endY}%`,
                     ],
-                    opacity: [0, 0.7, 0.5, 0],
-                    pathLength: [0, 1, 1, 0],
                   }}
                   transition={{
-                    duration: 15 + i * 1.5,
+                    duration: 15 + i * 2,
                     repeat: Infinity,
                     ease: "easeInOut",
-                    delay: i * 1,
+                    delay: i * 0.5,
                   }}
                 />
               </motion.svg>
