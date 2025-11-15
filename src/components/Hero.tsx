@@ -133,13 +133,9 @@ const Hero = () => {
               transition={{ duration: 0.6, delay: 1.6 }}
               className="space-y-4"
             >
-              <motion.h2 
-                className="text-2xl md:text-3xl font-semibold text-foreground"
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 300 }}
-              >
+              <h2 className="text-2xl md:text-3xl font-semibold text-foreground">
                 B.Tech AI Student & Python Developer
-              </motion.h2>
+              </h2>
               <motion.p 
                 className="text-lg text-muted-foreground max-w-xl leading-relaxed mx-auto"
                 initial={{ opacity: 0 }}
@@ -179,8 +175,7 @@ const Hero = () => {
                       stiffness: 200 
                     }}
                     whileHover={{ 
-                      scale: 1.2, 
-                      rotate: 5,
+                      scale: 1.2,
                       boxShadow: `0 0 20px ${social.color}40`
                     }}
                     whileTap={{ scale: 0.9 }}
@@ -188,15 +183,6 @@ const Hero = () => {
                     aria-label={social.label}
                   >
                     <Icon className="h-5 w-5 transition-transform group-hover:scale-110" />
-                    
-                    {/* Hover tooltip */}
-                    <motion.span
-                      initial={{ opacity: 0, y: 10 }}
-                      whileHover={{ opacity: 1, y: 0 }}
-                      className="absolute -bottom-8 text-xs bg-card px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
-                    >
-                      {social.label}
-                    </motion.span>
                   </motion.a>
                 );
               })}
