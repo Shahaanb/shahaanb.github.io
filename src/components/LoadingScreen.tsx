@@ -44,139 +44,6 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
           className="fixed inset-0 z-[9999] flex items-center justify-center bg-background"
         >
           <div className="absolute inset-0 bg-gradient-glow" />
-          
-          {/* Flowing curved lines from center */}
-          {[...Array(25)].map((_, i) => {
-            const angle = (i / 25) * 360;
-            const centerX = 50;
-            const centerY = 50;
-            
-            const endX = centerX + Math.cos(angle * Math.PI / 180) * 40;
-            const endY = centerY + Math.sin(angle * Math.PI / 180) * 40;
-            
-            const control1X = centerX + Math.cos((angle + 30) * Math.PI / 180) * 20;
-            const control1Y = centerY + Math.sin((angle + 30) * Math.PI / 180) * 20;
-            const control2X = centerX + Math.cos((angle - 30) * Math.PI / 180) * 30;
-            const control2Y = centerY + Math.sin((angle - 30) * Math.PI / 180) * 30;
-            
-            return (
-              <svg
-                key={i}
-                className="absolute inset-0 w-full h-full pointer-events-none"
-                style={{ zIndex: 1 }}
-              >
-                <motion.path
-                  d={`M ${centerX}% ${centerY}% C ${control1X}% ${control1Y}%, ${control2X}% ${control2Y}%, ${endX}% ${endY}%`}
-                  stroke="rgba(92, 225, 230, 0.6)"
-                  strokeWidth="2"
-                  fill="none"
-                  strokeLinecap="round"
-                  animate={{
-                    d: [
-                      `M ${centerX}% ${centerY}% C ${control1X}% ${control1Y}%, ${control2X}% ${control2Y}%, ${endX}% ${endY}%`,
-                      `M ${centerX}% ${centerY}% C ${control1X + 10}% ${control1Y - 10}%, ${control2X - 10}% ${control2Y + 10}%, ${endX + 5}% ${endY - 5}%`,
-                      `M ${centerX}% ${centerY}% C ${control1X - 10}% ${control1Y + 10}%, ${control2X + 10}% ${control2Y - 10}%, ${endX - 5}% ${endY + 5}%`,
-                      `M ${centerX}% ${centerY}% C ${control1X}% ${control1Y}%, ${control2X}% ${control2Y}%, ${endX}% ${endY}%`,
-                    ],
-                  }}
-                  transition={{
-                    duration: 8 + (i % 5) * 2,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: (i % 8) * 0.2,
-                  }}
-                />
-              </svg>
-            );
-          })}
-          
-          {/* Additional swirling lines */}
-          {[...Array(15)].map((_, i) => {
-            const angle = (i / 15) * 360 + 180;
-            const centerX = 50;
-            const centerY = 50;
-            
-            const radius1 = 15 + (i % 3) * 5;
-            const radius2 = 25 + (i % 4) * 5;
-            
-            const x1 = centerX + Math.cos(angle * Math.PI / 180) * radius1;
-            const y1 = centerY + Math.sin(angle * Math.PI / 180) * radius1;
-            const x2 = centerX + Math.cos((angle + 90) * Math.PI / 180) * radius2;
-            const y2 = centerY + Math.sin((angle + 90) * Math.PI / 180) * radius2;
-            
-            return (
-              <svg
-                key={`swirl-${i}`}
-                className="absolute inset-0 w-full h-full pointer-events-none"
-                style={{ zIndex: 1 }}
-              >
-                <motion.path
-                  d={`M ${centerX}% ${centerY}% Q ${x1}% ${y1}%, ${x2}% ${y2}%`}
-                  stroke="rgba(92, 225, 230, 0.5)"
-                  strokeWidth="2"
-                  fill="none"
-                  strokeLinecap="round"
-                  animate={{
-                    d: [
-                      `M ${centerX}% ${centerY}% Q ${x1}% ${y1}%, ${x2}% ${y2}%`,
-                      `M ${centerX}% ${centerY}% Q ${x1 + 8}% ${y1 - 6}%, ${x2 - 5}% ${y2 + 8}%`,
-                      `M ${centerX}% ${centerY}% Q ${x1 - 6}% ${y1 + 8}%, ${x2 + 6}% ${y2 - 5}%`,
-                      `M ${centerX}% ${centerY}% Q ${x1}% ${y1}%, ${x2}% ${y2}%`,
-                    ],
-                  }}
-                  transition={{
-                    duration: 10 + (i % 4) * 2.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: (i % 6) * 0.3,
-                  }}
-                />
-              </svg>
-            );
-          })}
-          
-          {[...Array(15)].map((_, i) => {
-            const angle = (i / 15) * 360 + 180;
-            const centerX = 50;
-            const centerY = 50;
-            
-            const radius1 = 25 + (i % 3) * 10;
-            const radius2 = 40 + (i % 4) * 8;
-            
-            const x1 = centerX + Math.cos(angle * Math.PI / 180) * radius1;
-            const y1 = centerY + Math.sin(angle * Math.PI / 180) * radius1;
-            const x2 = centerX + Math.cos((angle + 90) * Math.PI / 180) * radius2;
-            const y2 = centerY + Math.sin((angle + 90) * Math.PI / 180) * radius2;
-            
-            return (
-              <motion.svg
-                key={`swirl-${i}`}
-                className="absolute inset-0 w-full h-full pointer-events-none"
-              >
-                <motion.path
-                  d={`M ${centerX}% ${centerY}% Q ${x1}% ${y1}%, ${x2}% ${y2}%`}
-                  stroke={`rgba(92, 225, 230, 0.25)`}
-                  strokeWidth={1.5}
-                  fill="none"
-                  strokeLinecap="round"
-                  animate={{
-                    d: [
-                      `M ${centerX}% ${centerY}% Q ${x1}% ${y1}%, ${x2}% ${y2}%`,
-                      `M ${centerX}% ${centerY}% Q ${x1 + 15}% ${y1 - 12}%, ${x2 - 10}% ${y2 + 15}%`,
-                      `M ${centerX}% ${centerY}% Q ${x1 - 12}% ${y1 + 15}%, ${x2 + 12}% ${y2 - 10}%`,
-                      `M ${centerX}% ${centerY}% Q ${x1}% ${y1}%, ${x2}% ${y2}%`,
-                    ],
-                  }}
-                  transition={{
-                    duration: 10 + (i % 4) * 2.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                    delay: (i % 6) * 0.3,
-                  }}
-                />
-              </motion.svg>
-            );
-          })}
 
           <div className="relative z-10 flex flex-col items-center gap-8">
             <motion.div
@@ -266,8 +133,38 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.8 }}
-              className="w-64"
+              className="w-64 relative"
             >
+              {/* Particles that flow towards the progress bar at constant speed */}
+              {[...Array(30)].map((_, i) => {
+                // Fixed random positions spread across and beyond the screen
+                const startX = (Math.random() - 0.5) * window.innerWidth * 1.5;
+                const startY = (Math.random() - 0.5) * window.innerHeight * 1.5;
+                
+                return (
+                  <motion.div
+                    key={i}
+                    className="absolute w-1.5 h-1.5 bg-primary/80 rounded-full pointer-events-none"
+                    style={{
+                      left: '50%',
+                      top: '4px',
+                      x: startX,
+                      y: startY,
+                    }}
+                    animate={{
+                      x: 0,
+                      y: 0,
+                    }}
+                    transition={{
+                      duration: 6,
+                      repeat: Infinity,
+                      ease: "linear",
+                      repeatDelay: 0,
+                    }}
+                  />
+                );
+              })}
+              
               <div className="relative h-2 bg-navy-light rounded-full overflow-hidden">
                 <motion.div
                   className="absolute inset-0"
@@ -285,7 +182,7 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
                 />
                 
                 <motion.div
-                  className="h-full bg-gradient-accent relative"
+                  className="h-full bg-gradient-accent relative overflow-visible"
                   initial={{ width: "0%" }}
                   animate={{ width: `${progress}%` }}
                   transition={{ duration: 0.3 }}
