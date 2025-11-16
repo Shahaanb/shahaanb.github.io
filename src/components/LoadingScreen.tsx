@@ -133,38 +133,8 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.8 }}
-              className="w-64 relative"
+              className="w-64"
             >
-              {/* Particles that flow towards the progress bar at constant speed */}
-              {[...Array(30)].map((_, i) => {
-                // Fixed random positions spread across and beyond the screen
-                const startX = (Math.random() - 0.5) * window.innerWidth * 1.5;
-                const startY = (Math.random() - 0.5) * window.innerHeight * 1.5;
-                
-                return (
-                  <motion.div
-                    key={i}
-                    className="absolute w-1.5 h-1.5 bg-primary/80 rounded-full pointer-events-none"
-                    style={{
-                      left: '50%',
-                      top: '4px',
-                      x: startX,
-                      y: startY,
-                    }}
-                    animate={{
-                      x: 0,
-                      y: 0,
-                    }}
-                    transition={{
-                      duration: 6,
-                      repeat: Infinity,
-                      ease: "linear",
-                      repeatDelay: 0,
-                    }}
-                  />
-                );
-              })}
-              
               <div className="relative h-2 bg-navy-light rounded-full overflow-hidden">
                 <motion.div
                   className="absolute inset-0"
@@ -182,7 +152,7 @@ const LoadingScreen = ({ onLoadingComplete }: { onLoadingComplete: () => void })
                 />
                 
                 <motion.div
-                  className="h-full bg-gradient-accent relative overflow-visible"
+                  className="h-full bg-gradient-accent relative"
                   initial={{ width: "0%" }}
                   animate={{ width: `${progress}%` }}
                   transition={{ duration: 0.3 }}
